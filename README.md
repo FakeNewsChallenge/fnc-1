@@ -21,3 +21,8 @@ The distribution of `Stance` classes in `train_stances.csv` is as follows:
 |   rows |   unrelated |   discuss |     agree |   disagree |
 |-------:|------------:|----------:|----------:|-----------:|
 |  49972 |    0.73131  |  0.17828  | 0.0736012 |  0.0168094 |
+
+Credits:
+
+- Edward Misback
+- Craig Pfeifer
