@@ -1,9 +1,10 @@
 #!/usr/local/env python
 """
 Scorer for the Fake News Challenge
+ - @bgalbraith
 
-Submission is a CSV with the following fields: headline, body_id, label
-where label is in {agrees, disagrees, discusses, unrelated}
+Submission is a CSV with the following fields: Headline, Body ID, Stance
+where label is in {agree, disagree, discuss, unrelated}
 
 Scoring is as follows:
   +0.25 for each correct unrelated
