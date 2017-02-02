@@ -4,12 +4,12 @@ Scorer for the Fake News Challenge
  - @bgalbraith
 
 Submission is a CSV with the following fields: Headline, Body ID, Stance
-where label is in {agree, disagree, discuss, unrelated}
+where Stance is in {agree, disagree, discuss, unrelated}
 
 Scoring is as follows:
   +0.25 for each correct unrelated
-  +0.25 for each correct related (label is any of agrees, disagrees, discusses)
-  +0.75 for each correct agrees, disagrees, discusses
+  +0.25 for each correct related (label is any of agree, disagree, discuss)
+  +0.75 for each correct agree, disagree, discuss
 """
 from __future__ import division
 import csv
