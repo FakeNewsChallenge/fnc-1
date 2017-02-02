@@ -16,7 +16,7 @@ import sys
 
 
 FIELDNAMES = ['Headline', 'Body ID', 'Stance']
-RELATED = ['agrees', 'disagrees', 'discusses']
+RELATED = ['agree', 'disagree', 'discuss']
 
 USAGE = """
 FakeNewsChallenge FNC-1 scorer - version 1.0
@@ -25,7 +25,8 @@ Usage: python scorer.py gold_labels test_labels
   gold_labels - CSV file with reference GOLD stance labels
   test_labels - CSV file with predicted stance labels
 
-The scorer will provide two scores: NULL and Test
+The scorer will provide three scores: MAX, NULL, and TEST
+  MAX  - the best possible score (100% accuracy)
   NULL - score as if all predicted stances were unrelated
   TEST - score based on the provided predictions
 """
@@ -37,10 +38,11 @@ ERROR: Entry mismatch at line {}
 """
 
 SCORE_REPORT = """
+MAX  - the best possible score (100% accuracy)
 NULL - score as if all predicted stances were unrelated
 TEST - score based on the provided predictions
 
-||    NULL   ||    TEST   ||\n||{:^11}||{:^11}||
+||    MAX    ||    NULL   ||    TEST   ||\n||{:^11}||{:^11}||{:^11}||
 """
 
 
@@ -67,8 +69,17 @@ def score_submission(gold_labels, test_labels):
     return score
 
 
-def score_all_unrelated(gold_labels):
-    return 0.25 * len([g for g in gold_labels if g['Stance'] == 'unrelated'])
+def score_defaults(gold_labels):
+    """
+    Compute the "all false" baseline (all labels as unrelated) and the max
+    possible score
+    :param gold_labels: list containing the true labels
+    :return: (null_score, max_score)
+    """
+    unrelated = [g for g in gold_labels if g['Stance'] == 'unrelated']
+    null = 0.25 * len(unrelated)
+    max = null + (len(gold_labels) - len(unrelated))
+    return null, max
 
 
 def load_dataset(filename):
@@ -103,7 +114,7 @@ if __name__ == '__main__':
         test_labels = load_dataset(test_filename)
 
         test_score = score_submission(gold_labels, test_labels)
-        null_score = score_all_unrelated(gold_labels)
-        print(SCORE_REPORT.format(null_score, test_score))
+        null_score, max_score = score_defaults(gold_labels)
+        print(SCORE_REPORT.format(max_score, null_score, test_score))
     except FNCException as e:
         print(e)
