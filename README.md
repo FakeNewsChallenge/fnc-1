@@ -14,6 +14,35 @@ This file contains the body text of articles (the `articleBody` column) with cor
 
 This file contains the labeled stances (the `Stance` column) for pairs of article headlines (`Headline`) and article bodies (`Body ID`, referring to entries in `train_bodies.csv`).
 
+
+### JSON files
+
+`train_combined.json`: JSON file with following format:
+```
+{
+    "bodies": [...list of body items...], 
+    "stances": [...list of stance items...],
+}
+```
+
+The `bodies` key has data in the following format:
+```
+{
+    "Body ID": <body id>,
+    "articleBody": <body text>,
+}
+```
+
+The `stances` key has data in the following format:
+```
+{
+    "Headline": <headline text>,
+    "Body ID": <body id>,
+    "Stance": <body text>,
+}
+```
+
+
 ### Distribution of the data
 
 The distribution of `Stance` classes in `train_stances.csv` is as follows:
